@@ -13,7 +13,16 @@ echo "=== PRÁCTICA DE MÉTODOS ELOQUENT CON CATEGORY ===\n\n";
 // 1. MÉTODO CREATE - Crear nueva categoría
 echo "1. MÉTODO CREATE:\n";
 
-$newCategory = Category::create([
+// $newCategory = Category::create([
+//     'name' => 'Libros',
+//     'slug' => 'libros',
+//     'description' => 'Libros y literatura',
+//     'color' => '#6f42c1',
+//     'is_active' => true
+// ]);
+
+// Para segunda y sucesivas iteraciones utilizar:
+$newCategory = Category::updateOrCreate([
     'name' => 'Libros',
     'slug' => 'libros',
     'description' => 'Libros y literatura',
@@ -121,13 +130,17 @@ $manualCategory->description = 'Materiales para arte y proyectos creativos';
 $manualCategory->color = '#17a2b8';
 $manualCategory->is_active = true;
 
-$manualCategory->save();
-echo "✓ Categoría creada con save(): {$manualCategory->name} (ID: {$manualCategory->id})\n";
+try {
+    $manualCategory->save();
+    echo "✓ Categoría creada con save(): {$manualCategory->name} (ID: {$manualCategory->id})\n";
 
-// Actualizar con save()
-$manualCategory->description = 'Materiales para arte, manualidades y proyectos DIY';
-$manualCategory->save();
-echo "✓ Categoría actualizada con save(): nueva descripción guardada\n\n";
+    // Actualizar con save()
+    $manualCategory->description = 'Materiales para arte, manualidades y proyectos DIY';
+    $manualCategory->save();
+    echo "✓ Categoría actualizada con save(): nueva descripción guardada\n\n";
+} catch (Exception $e) {
+    echo "❌ Error al guardar categoría: " . $e->getMessage() . "\n\n";
+}
 
 // 7. RESUMEN FINAL
 echo "7. RESUMEN DE CATEGORÍAS CREADAS:\n";
