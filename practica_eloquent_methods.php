@@ -30,7 +30,11 @@ $newCategory = Category::updateOrCreate([
     'is_active' => true
 ]);
 
-echo "✓ Categoría creada con create(): {$newCategory->name} (ID: {$newCategory->id})\n\n";
+if ($newCategory->wasRecentlyCreated) {
+    echo "✓ Nueva categoría creada: {$newCategory->name}\n";
+} else {
+    echo "✓ La categoría ya existía: {$newCategory->name}\n";
+}
 
 // 2. MÉTODO FIND - Buscar por ID
 echo "2. MÉTODO FIND:\n";
@@ -122,35 +126,37 @@ echo "✓ Nueva categoría con updateOrCreate: {$newCategoryUpdate->name}\n\n";
 // 6. MÉTODO SAVE - Crear con instancia
 echo "6. MÉTODO SAVE:\n";
 
-// Crear nueva instancia y guardar
-$manualCategory = new Category();
-$manualCategory->name = 'Arte y Manualidades';
-$manualCategory->slug = 'arte-manualidades';
-$manualCategory->description = 'Materiales para arte y proyectos creativos';
-$manualCategory->color = '#17a2b8';
-$manualCategory->is_active = true;
+$manualCategory = Category::where('slug', 'arte-manualidades')->first();
 
-try {
+if (!$manualCategory) {
+    // Crear nueva instancia y guardar
+    $manualCategory = new Category();
+    $manualCategory->name = 'Arte y Manualidades';
+    $manualCategory->slug = 'arte-manualidades';
+    $manualCategory->description = 'Materiales para arte y proyectos creativos';
+    $manualCategory->color = '#17a2b8';
+    $manualCategory->is_active = true;
+
     $manualCategory->save();
     echo "✓ Categoría creada con save(): {$manualCategory->name} (ID: {$manualCategory->id})\n";
 
     // Actualizar con save()
     $manualCategory->description = 'Materiales para arte, manualidades y proyectos DIY';
     $manualCategory->save();
-    echo "✓ Categoría actualizada con save(): nueva descripción guardada\n\n";
-} catch (Exception $e) {
-    echo "❌ Error al guardar categoría: " . $e->getMessage() . "\n\n";
+} else {
+    echo "✓ Ya existía: {$manualCategory->name}\n";
 }
 
 // 7. RESUMEN FINAL
 echo "7. RESUMEN DE CATEGORÍAS CREADAS:\n";
 
-$allCategories = Category::orderBy('created_at', 'desc')->get();
+$allCategories = Category::orderBy('name')->get();
 foreach ($allCategories as $index => $category) {
     $status = $category->is_active ? '✅ Activa' : '❌ Inactiva';
     echo sprintf(
-        "%d. %s (%s) - %s - Color: %s %s\n",
+        "%d. (%d) %s (%s) - %s - Color: %s, creada %s\n",
         $index + 1,
+        $category->id,
         $category->name,
         $category->slug,
         $category->color,
