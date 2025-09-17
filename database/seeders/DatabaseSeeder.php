@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+
         Role::firstOrCreate(['name' => 'admin']);
         Role::firstOrCreate(['name' => 'user']);
 
@@ -19,5 +20,10 @@ class DatabaseSeeder extends Seeder
         );
 
         $admin->assignRole('admin');
+
+        $this->call(CategoriesSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(CustomerSeeder::class);
+
     }
 }

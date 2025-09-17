@@ -56,9 +56,9 @@ foreach ($products as $productData) {
         $productData // Datos a actualizar o crear
     );
     if ($product->wasRecentlyCreated) {
-        echo "✓ Producto creado: {$product->name} (ID: {$product->id})\n";
+        echo "- Creado $product\n";
     } else {
-        echo "✓ Producto actualizado: {$product->name} (ID: {$product->id})\n";
+        echo "- Actualizado: $product\n";
     }
 }
 echo "\n=== TOTAL DE PRODUCTOS CREADOS: " . count($products) . " ===\n";

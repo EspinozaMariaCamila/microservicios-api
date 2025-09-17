@@ -44,8 +44,7 @@ echo "Customers inserted or updated successfully.\n";
 
 $listado = Customer::all();
 foreach ($listado as $customer) {
-    //echo $customer->id . ' ' . $customer->first_name . ' ' . $customer->last_name . ' - ' . $customer->email . "\n";
-    echo "{$customer->id}. {$customer->first_name}, {$customer->last_name} - {$customer->email}\n";
+    echo "$customer\n";
 }
 
 echo "Total customers: " . $listado->count() . "\n";

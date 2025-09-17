@@ -1,0 +1,30 @@
+[
+    {
+        "slug": "electronics",
+        "name": "Electronics",
+        "description": "Electronic devices and gadgets",
+        "color": "#FF5733",
+        "is_active": true
+    },
+    {
+        "slug": "clothing",
+        "name": "Clothing",
+        "description": "Apparel and accessories",
+        "color": "#33FF57",
+        "is_active": true
+    },
+    {
+        "slug": "home-kitchen",
+        "name": "Home & Kitchen",
+        "description": "Household items and kitchenware",
+        "color": "#3357FF",
+        "is_active": true
+    },
+    {
+        "slug": "sports-outdoors",
+        "name": "Sports & Outdoors",
+        "description": "Sporting goods and outdoor equipment",
+        "color": "#FF33A1",
+        "is_active": true
+    }
+]

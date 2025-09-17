@@ -34,4 +34,9 @@ class Review extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function __toString()
+    {
+        return "Puntaje dado por {$this->customer->first_name} para {$this->product->name}: {$this->rating}/5";
+    }
 }
