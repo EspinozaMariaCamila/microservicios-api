@@ -54,9 +54,4 @@ class Product extends Model
     {
         return $this->reviews()->count();
     }
-
-    public function __toString()
-    {
-        return "{$this->name}: $ {$this->price}";
-    }
 }
