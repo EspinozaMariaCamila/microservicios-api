@@ -1,12 +1,22 @@
 <?php
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/ping', fn() => response()->json([
     'success' => true,
     'data' => ['status' => 'ok'],
     'message' => 'API is running correctly'
 ]));
+
+// Respuesta JSON en API routes/api.php
+Route::get('/status', function () {
+    return response()->json([
+        'status' => 'OK',
+        'timestamp' => now(),
+        'version' => '1.0.0'
+    ]);
+});
 
 // Endpoint de prueba para archivos (sin autenticación para testing)
 Route::post('/test-files', [FileController::class, 'upload']);

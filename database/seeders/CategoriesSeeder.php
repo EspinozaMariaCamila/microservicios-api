@@ -17,8 +17,11 @@ class CategoriesSeeder extends Seeder
         $json = file_get_contents(database_path('seeders/categories.json'));
         $categories = json_decode($json, true);
 
+        $nuevos = 0;
+        $actualizados = 0;
+
         foreach ($categories as $category) {
-            Category::updateOrCreate(
+            $categoria = Category::updateOrCreate(
                 ['slug' => $category['slug']],
                 [
                     'name' => $category['name'],
@@ -27,6 +30,15 @@ class CategoriesSeeder extends Seeder
                     'is_active' => $category['is_active']
                 ]
             );
+            if ($categoria->wasRecentlyCreated) {
+                $nuevos++;
+            } elseif ($categoria->wasChanged()) {
+                $actualizados++;
+            }
+        }
+
+        if ($actualizados > 0 || $nuevos > 0) {
+            echo "Categorías nuevas: $nuevos, actualizadas: $actualizados\n";
         }
     }
 }

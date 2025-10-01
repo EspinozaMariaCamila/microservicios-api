@@ -13,7 +13,7 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        srand();
+        srand(env('FAKER_SEED', 1234));
         Product::factory()->count(50)->create();
     }
 }

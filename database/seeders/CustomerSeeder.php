@@ -14,7 +14,7 @@ class CustomerSeeder extends Seeder
     public function run(): void
     {
         // set seed for faker
-        srand(1234);
+        srand(env('FAKER_SEED', 1234));
         Customer::factory()->count(10)->create();
     }
 }

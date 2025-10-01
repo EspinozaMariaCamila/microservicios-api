@@ -16,14 +16,21 @@ class DatabaseSeeder extends Seeder
 
         $admin = User::firstOrCreate(
             ['email' => env('ADMIN_EMAIL')],
-            ['name' => 'Administrador', 'password' => bcrypt(env('ADMIN_PASSWORD'))]
+            [
+                'name' => env('ADMIN_NAME'),
+                'password' => bcrypt(env('ADMIN_PASSWORD'))
+            ]
         );
 
         $admin->assignRole('admin');
 
-        $this->call(CategoriesSeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(CustomerSeeder::class);
+        User::factory()->count(9)->create();
 
+        $this->call([
+            CategoriesSeeder::class,
+            ProductSeeder::class,
+            CustomerSeeder::class,
+            ReviewSeeder::class,
+        ]);
     }
 }

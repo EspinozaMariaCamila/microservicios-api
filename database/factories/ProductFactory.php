@@ -24,7 +24,7 @@ class ProductFactory extends Factory
         return [
             'name' => $productData['name'],
             'price'=> $this->faker->randomFloat(2,50,100),
-            'description' => $this->faker->text(150) . ' ' . $productData['description_suffix'],
+            'description' => $productData['description'],
             'image_url' => $this->faker->imageUrl(),
             'weight' => $this->faker->randomFloat(2,0,100),
             'stock' => $this->faker->numberBetween(0,1000),
