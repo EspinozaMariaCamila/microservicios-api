@@ -57,6 +57,26 @@
             animation: fadeInUp 1s ease-out 0.6s both;
         }
 
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+            }
+            to {
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+            }
+        }
+
         .btn-container {
             animation: fadeInUp 1s ease-out 0.9s both;
         }
@@ -233,9 +253,9 @@
         <h1 class="hello-world">¡Hola Mundo!</h1>
         <p class="subtitle">Bienvenido a Laravel</p>
         <p class="description">
-            Esta es tu primera página creada con Laravel y Blade.
+            Hola <span class="highlight">{{ $datos['nombre'] }}</span>! Esta es tu primera página creada con Laravel y Blade.
             Un framework PHP elegante y expresivo que hace que el desarrollo web sea un placer.
-            ¡Comienza tu viaje de desarrollo aquí!
+            ¡Comienza tu viaje de desarrollo aquí! (a pesar que ya tienes {{ $datos['edad'] }} años).
         </p>
 
         <div class="btn-container">

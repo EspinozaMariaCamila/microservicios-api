@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HolaController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DocumentationController;
 
 Route::get('/', fn() => view('api-client'));
 
 Route::get('/bienvenido', fn() => view('welcome'))->name('welcome');
 
-Route::get('/hola-mundo', fn() => view('hola-mundo'))->name('hola-mundo');
+Route::get('/hola-mundo', [HolaController::class, 'saludar'])->name('hola-mundo');
 
 // Parámetro obligatorio
 // Route::get('/customers/{id}', function ($id) {
@@ -27,10 +29,7 @@ Route::get('/customers/{id}/reviews/{reviewId}', function ($id, $reviewId) {
     return "Review {$reviewId} del cliente {$id}";
 });
 
-// Solo números
-Route::get('/products/{id}', function ($id) {
-    return "Producto: {$id}";
-})->where('id', '[0-9]+');
+Route::resource('products', ProductController::class);
 
 // Solo letras
 Route::get('/categories/{slug}', function ($slug) {

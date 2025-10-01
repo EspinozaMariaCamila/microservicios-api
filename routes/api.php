@@ -1,7 +1,10 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HolaController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CalcularController;
 
 Route::get('/ping', fn() => response()->json([
     'success' => true,
@@ -17,6 +20,23 @@ Route::get('/status', function () {
         'version' => '1.0.0'
     ]);
 });
+
+Route::get('/products', function () {
+    $products = [
+        ['id' => 1, 'name' => 'Laptop', 'price' => 999.99],
+        ['id' => 2, 'name' => 'Mouse', 'price' => 25.99],
+        ['id' => 3, 'name' => 'Teclado', 'price' => 89.99]
+    ];
+
+    return response()->json([
+        'data' => $products,
+        'count' => count($products)
+    ]);
+});
+
+Route::get('/calc/{operation}/{num1}/{num2}', [CalcularController::class, 'calcular']);
+
+Route::post('/stat', [CalcularController::class, 'statistics']);
 
 // Endpoint de prueba para archivos (sin autenticación para testing)
 Route::post('/test-files', [FileController::class, 'upload']);
